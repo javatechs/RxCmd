@@ -17,14 +17,14 @@ Devices:
 
 == Discover the address of your phone/laptop
 * Make sure Bluetooth is enabled on the phone/laptop. 
-* Make sure Bluetooth on your phone/laptop is set to visible.
-* On an Android phone, go to settings->Bluetooth. Turn on visibility. The device only remains visible for a short time.
+* Make sure Bluetooth on your phone/pc/laptop is discoverable.
+* On an Android phone, go to settings->Bluetooth. Make device discoverable (visible). The device only remains discoverable for a short time.
 
 -----------------------------------------------------
 ./finddevice.py
 -----------------------------------------------------
 
-== Add phone/laptop bluetooth as trusted to the Pi
+== Add pc/laptop bluetooth as trusted to the Pi
 * Temporarily:
 
 -----------------------------------------------------
@@ -37,25 +37,81 @@ bluez-simple-agent hci# xx:xx:xx:xx:xx:xx
 sudo bluez-test-device trusted xx:xx:xx:xx:xx:xx yes
 -----------------------------------------------------
 
-== Start Daemon on Pi
+== Add phone as trusted Bluetooth device
+
+=== Make Pi visible
+-----------------------------------------------------
+$ hostname
+prsg2
+$ sudo hciconfig hci0 piscan
+$ hciconfig -a
+...
+UP RUNNING PSCAN ISCAN
+...
+
+$ bluez-simple-agent
+-----------------------------------------------------
+=== Initiate pairing on phone
+* Select settings->Bluetooth->SCAN. 
+* Look for the host name from the _hostname_ command above.
+* Click to connect with device. On the phone a dialog box appears. 'Bluetooth Pairing Request', Confirm passkey is 999999 to pair with prsg. DO NOT CLICK 'OK' ON PHONE yet. Back to the Pi.
+
+=== Confirm passkey and accept pairing on Pi
+-----------------------------------------------------
+$ bluez-simple-agent
+not registered
+RequestConfirmation (/org/bluez/hci0/dev_XX_XX_XX_XX_XX_XX, 999999)
+Confirm passkey (yes/no) yes
+^C
+-----------------------------------------------------
+* Use the Ctrl+C to terminate bluez-simple-agent.
+
+=== Complete pairing on phone
+* NOW press OK on the phone to complete pairing on phone.
+
+
+
+
+== Send commands from pc/laptop to Pi
+
+=== Start Daemon on Pi
 * Daemon implements start/stop/restart. To start daemon on Pi, type:
 
 -----------------------------------------------------
-./daemon-rxcmd.py start
+$ ./daemon-rxcmd.py start
 -----------------------------------------------------
 
-== Add an init script
+=== Start the command client on your pc/laptop 
+* Type this command with the address of the Pi:
+-----------------------------------------------------
+./rxcmd.py xx:xx:xx:xx:xx:xx
+-----------------------------------------------------
 
-== Send commands from your laptop to the daemon:
+
+=== Pi screen should read:
 -----------------------------------------------------
-./rxcmd.py 
------------------------------------------------------
-Pi screen should read:
------------------------------------------------------
+$ ./daemon-rxcmd.py start
 Accepted connection from  ('xx:xx:xx:xx:xx:xx', 1)
-received [hello!!]
 -----------------------------------------------------
-You can now enter commands
+
+
+=== On pc/laptop, 
+You can now enter commands:
+-----------------------------------------------------
+Talking to: rosrov1-0. Hit enter to send, 'esc' to quit
+command001
+-----------------------------------------------------
+
+=== PI now reads
+-----------------------------------------------------
+$ ./daemon-rxcmd.py start
+Accepted connection from  ('xx:xx:xx:xx:xx:xx', 1)
+received [command001]
+-----------------------------------------------------
+
+
+== init script
+* To be completed
 
 == References
 
