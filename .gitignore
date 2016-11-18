@@ -1,5 +1,6 @@
 # Backup editted files
 *~
+*.pyc
 
 # Compiled Object files
 *.slo
