@@ -1,17 +1,17 @@
 = How To: Bluetooth control of Raspberry Pi
 A simple daemon which accepts commands from a paired bluetooth client.
 
-== Install python's bluez package on your 
+== Install Python's bluez package on your Pi and PC
 sudo apt-get install python-bluez bluez python-gobject python-dbus python-daemon
 
 == Discover the hciX address of your Pi
-ubuntu@rosrov1:~/catkin_ws/src/robo_magellan/src$ hcitool dev
+$ hcitool dev
 Devices:
 	hci0	xx:xx:xx:xx:xx:xx
 
 == Discover the address of your phone/laptop
 * Make sure Bluetooth is enabled on the phone/laptop. 
-* Make sure your phone/laptop is set to visible. On an Android phone this times out.
+* Make sure your phone/laptop is set to visible. On an Android phone this times out after a period of time.
 
 ./finddevice.py
 
@@ -24,11 +24,13 @@ bluez-simple-agent hci# xx:xx:xx:xx:xx:xx
 
 sudo bluez-test-device trusted xx:xx:xx:xx:xx:xx yes
 
-== Start Daemon
+== Start Daemon on Pi
 * Daemon implements start/stop/restart. To start daemon on Pi, type:
 ./daemon-rxcmd.py start
 
-== On control client on laptop:
+== Add an init script
+
+== Send commands from your laptop to the daemon:
 ./rxcmd.py 
 
 You can now enter commands
