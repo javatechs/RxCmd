@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2016 F Dou<programmingrobotsstudygroup@gmail.com>
+# See LICENSE for details.
 
 import time
 from daemon import runner
