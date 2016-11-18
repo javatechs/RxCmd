@@ -6,6 +6,7 @@ sudo apt-get install python-bluez bluez python-gobject python-dbus python-daemon
 
 == Discover the hciX address of your Pi
 $ hcitool dev
+
 Devices:
 	hci0	xx:xx:xx:xx:xx:xx
 
@@ -26,6 +27,7 @@ sudo bluez-test-device trusted xx:xx:xx:xx:xx:xx yes
 
 == Start Daemon on Pi
 * Daemon implements start/stop/restart. To start daemon on Pi, type:
+
 ./daemon-rxcmd.py start
 
 == Add an init script
