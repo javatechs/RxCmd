@@ -14,7 +14,7 @@ class RxCmdDaemon():
         self.stdin_path   = '/dev/null'
         self.stdout_path  = '/dev/tty'
         self.stderr_path  = '/dev/tty'
-        self.pidfile_path = '/tmp/HelloDaemon.pid'
+        self.pidfile_path = '/tmp/RxCmdDaemon.pid'
         self.pidfile_timeout = 5
 
     def run(self):
