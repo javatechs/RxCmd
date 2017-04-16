@@ -33,7 +33,10 @@ class RxCmdDaemon():
             except Exception as e:
                 logging.exception(e)
 
-
-rxCmdDaemon = RxCmdDaemon()
-daemon_runner = runner.DaemonRunner(rxCmdDaemon)
-daemon_runner.do_action()
+while True:
+    try:
+        rxCmdDaemon = RxCmdDaemon()
+        daemon_runner = runner.DaemonRunner(rxCmdDaemon)
+        daemon_runner.do_action()
+    except Exception as e:
+        logging.exception(e)
