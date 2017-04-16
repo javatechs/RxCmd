@@ -117,7 +117,7 @@ received [command001]
 sudo su
 cd /etc/init.d
 -----------------------------------------------------
-* Download https://github.com/javatechs/RxCmd/daemon-rxcmd.sh[This File] to the /etc/init.d folder you're currently in.  An easy way to do that would be to use wget:
+* Download hhttps://github.com/javatechs/RxCmd/blob/master/daemon-rxcmd.sh[This File] to the /etc/init.d folder you're currently in.  An easy way to do that would be to use wget:
 -----
 wget --no-check-certificate https://github.com/javatechs/RxCmd/daemon-rxcmd.sh
 -----
