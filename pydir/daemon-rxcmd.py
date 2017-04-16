@@ -12,8 +12,10 @@ from daemon import runner
 class RxCmdDaemon():
     def __init__(self):
         self.stdin_path   = '/dev/null'
-        self.stdout_path  = '/dev/tty'
-        self.stderr_path  = '/dev/tty'
+#        self.stdout_path  = '/dev/tty'
+        self.stdout_path = '/home/robot/pydir/daemon.log'
+        self.stderr_path = '/home/robot/pydir/daemon.log'
+#        self.stderr_path  = '/dev/tty'
         self.pidfile_path = '/tmp/RxCmdDaemon.pid'
         self.pidfile_timeout = 5
 
@@ -33,10 +35,7 @@ class RxCmdDaemon():
             except Exception as e:
                 logging.exception(e)
 
-while True:
-    try:
-        rxCmdDaemon = RxCmdDaemon()
-        daemon_runner = runner.DaemonRunner(rxCmdDaemon)
-        daemon_runner.do_action()
-    except Exception as e:
-        logging.exception(e)
+rxCmdDaemon = RxCmdDaemon()
+daemon_runner = runner.DaemonRunner(rxCmdDaemon)
+daemon_runner.do_action()
+
