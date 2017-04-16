@@ -111,7 +111,28 @@ received [command001]
 
 
 == init script
-* To be completed
+* As robot user get the files from git to /home/robot/pydir (if you use a different path, you will likely need to make some changes to the init.d script)
+* Then execute these commands:
+-----------------------------------------------------
+sudo su
+cd /etc/init.d
+-----------------------------------------------------
+* Download https://github.com/javatechs/RxCmd/daemon-rxcmd.sh[This File] to the /etc/init.d folder you're currently in.  An easy way to do that would be to use wget:
+-----
+wget --no-check-certificate https://github.com/javatechs/RxCmd/daemon-rxcmd.sh
+-----
+* Open the daemon-rxcmd.sh file and make sure the paths in the env variables including the pidfile are correct based on the location of your daemon-rxcmd.py and pidfile
+* Now run the following commands:
+-----
+chmod 755 daemon-rxcmd.sh
+update-rc.d daemon-rxcmd.sh defaults
+mv /etc/rc2.d/S01daemon-rxcmd.sh /etc/rc2.d/S05daemon-rxcmd.sh
+mv /etc/rc3.d/S01daemon-rxcmd.sh /etc/rc3.d/S05daemon-rxcmd.sh
+mv /etc/rc4.d/S01daemon-rxcmd.sh /etc/rc4.d/S05daemon-rxcmd.sh
+mv /etc/rc5.d/S01daemon-rxcmd.sh /etc/rc5.d/S05daemon-rxcmd.sh
+-----
+
+That's it!  You should now successfully start/stop the daemon for bluetooth on stop/start/reboot
 
 == References
 
