@@ -69,9 +69,6 @@ Confirm passkey (yes/no) yes
 === Complete pairing on phone
 * NOW press OK on the phone to complete pairing on phone.
 
-
-
-
 == Send commands from pc/laptop to Pi
 
 === Start Daemon on Pi
@@ -109,6 +106,67 @@ Accepted connection from  ('xx:xx:xx:xx:xx:xx', 1)
 received [command001]
 -----------------------------------------------------
 
+== Alternate CLI only bluetooth howto
+
+On the robot itself (not your phone) execute the following:
+----
+bluetoothctl
+----
+You should now be in bluetooth command prompt.  Now type the following to enable scanning:
+----
+scan on
+----
+Then look for devices that are available:
+----
+devices
+----
+You should see something like the below - the one I'm interested in is my phone, so copy the device id to your clipboard (that's the string with all the colons in it): 
+----
+[bluetooth]# devices
+Device 03:1C:7D:E4:62:12 BOOGYWOOGY 625s
+Device BD:32:B2:E1:1C:83 JDPHONE
+----
+Now trust your device with the following command:
+----
+[bluetooth]# trust BD:32:B2:E1:1C:83
+----
+Then run the following commands and get the expected output shown:
+----
+[bluetooth]# discoverable on
+Changing discoverable on succeeded
+[bluetooth]# pairable on
+Changing pairable on succeeded
+[bluetooth]# agent NoInputNoOutput
+Agent registered
+[bluetooth]# default-agent
+Default agent request successful
+----
+At this point go to your phone bluetooth settings and find the robot and try to pair with it.  It should prompt you to enter a pin on the phone - pick any number combination you like (I used 0000) and enter it on your phone.  The phone will then talk back to the robot and the robot should prompt you to enter the same pin:
+----
+[NEW] Device BD:32:B2:E1:1C:83 JDPHONE
+Request PIN code
+[agent] Enter PIN code: 0000
+----
+at that point you'll get more output suddenly.  You can now exit out of the bluetooth console.
+
+That's it, you're paired.  You can now use the Vicky app on your phone!
+
+== Running the Vicky app
+
+To get bluetooth app on android phone
+
+* Go to Google Drive/PRSG/RoboMagellan - there should be a file app-kinetic-debug.apk - go ahead and download it to your phone and run it (You may be prompted to go into settings and enable "Untrusted Sources" - you need to do that to install an app this way).
+* Make sure phone's bluetooth is turned on
+* Go into your settings/bluetooth settings and make sure your phone is discoverable
+Once daemon-rxcmd.py is running on your robot and you are bluetooth paired to it from your phone.  On your phone:
+
+* Launch the vicky app
+* Click the green bluetooth button at the top and from the list of devices, choose your robot
+** You should see a message about being connected
+* Use back arrow on phone to back out of vicky app
+* Reopen vicky app.  You should now have a series of options such as reboot robot, roslaunch, reboot pixhawk, etc.
+
+You can additionally click on the ROS looking icon and connect via wifi if you know the IP Address/port combination from the vicky app.
 
 == init script
 * As robot user get the files from git to /home/robot/pydir (if you use a different path, you will likely need to make some changes to the init.d script)
