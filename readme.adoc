@@ -2,6 +2,19 @@
 
 A simple daemon which accepts commands from a paired bluetooth client.
 
+== Install this code
+On your robot:
+
+----
+cd ~
+mkdir pydir
+cd pydir
+wget --no-check-certifate https://github.com/javatechs/RxCmd/archive/master.zip
+unzip master.zip
+mv RxCmd-master/pydir/* RxCmd-master/daemon-rxcmd.sh .
+rm -rf RxCmd-master
+----
+
 == Install Python's bluez package on your Pi and PC
 -----------------------------------------------------
 $ sudo apt-get install python-bluez bluez python-gobject python-dbus python-daemon
@@ -170,26 +183,24 @@ Once daemon-rxcmd.py is running on your robot and you are bluetooth paired to it
 You can additionally click on the ROS looking icon and connect via wifi if you know the IP Address/port combination from the vicky app.
 
 == init script
-* As robot user get the files from git to /home/robot/pydir (if you use a different path, you will likely need to make some changes to the init.d script)
+Note, these steps presume you have run the "Install this code" section and that your paths are correct.  If you have changed things, you may need to edit daemon-rxcmd.py and daemon-rxcmd.sh accordingly
+
+As robot user check /home/<user>/pydir:
+
+* Check that daemon-rxcmd.py stdout, stderr and pid locations are correct, or modify according to your paths
+* Check that the paths/files listed in the variables section in daemon-rxcmd.sh are correct or modify according to your paths
 * Then execute these commands:
 -----------------------------------------------------
 sudo su
 cd /etc/init.d
------------------------------------------------------
-* Download https://github.com/javatechs/RxCmd/blob/master/daemon-rxcmd.sh[This File] to the /etc/init.d folder you're currently in.  An easy way to do that would be to use wget:
------
-wget --no-check-certificate https://raw.githubusercontent.com/javatechs/RxCmd/master/daemon-rxcmd.sh
------
-* Open the daemon-rxcmd.sh file and make sure the paths in the env variables including the pidfile are correct based on the location of your daemon-rxcmd.py and pidfile
-* Now run the following commands:
------
+cp /home/robot/pydir/daemon-rxcmd.sh .
 chmod 755 daemon-rxcmd.sh
 update-rc.d daemon-rxcmd.sh defaults
 mv /etc/rc2.d/S01daemon-rxcmd.sh /etc/rc2.d/S05daemon-rxcmd.sh
 mv /etc/rc3.d/S01daemon-rxcmd.sh /etc/rc3.d/S05daemon-rxcmd.sh
 mv /etc/rc4.d/S01daemon-rxcmd.sh /etc/rc4.d/S05daemon-rxcmd.sh
 mv /etc/rc5.d/S01daemon-rxcmd.sh /etc/rc5.d/S05daemon-rxcmd.sh
------
+-----------------------------------------------------
 
 That's it!  You should now successfully start/stop the daemon for bluetooth on stop/start/reboot
 
