@@ -158,6 +158,7 @@ To get bluetooth app on android phone
 * Go to Google Drive/PRSG/RoboMagellan - there should be a file app-kinetic-debug.apk - go ahead and download it to your phone and run it (You may be prompted to go into settings and enable "Untrusted Sources" - you need to do that to install an app this way).
 * Make sure phone's bluetooth is turned on
 * Go into your settings/bluetooth settings and make sure your phone is discoverable
+
 Once daemon-rxcmd.py is running on your robot and you are bluetooth paired to it from your phone.  On your phone:
 
 * Launch the vicky app
