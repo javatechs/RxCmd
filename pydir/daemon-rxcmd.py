@@ -13,8 +13,9 @@ class RxCmdDaemon():
     def __init__(self):
         self.stdin_path   = '/dev/null'
 #        self.stdout_path  = '/dev/tty'
-        self.stdout_path = '/home/robot/pydir/daemon.log'
-        self.stderr_path = '/home/robot/pydir/daemon.log'
+        self.stdout_path = '/tmp/RxCmdDaemon.log'
+        self.stderr_path = self.stdout_path
+#        self.stderr_path = '/home/robot/pydir/daemon.log'
 #        self.stderr_path  = '/dev/tty'
         self.pidfile_path = '/tmp/RxCmdDaemon.pid'
         self.pidfile_timeout = 5
