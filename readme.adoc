@@ -193,7 +193,7 @@ As robot user check /home/<user>/pydir:
 -----------------------------------------------------
 sudo su
 cd /etc/init.d
-cp /home/robot/pydir/daemon-rxcmd.sh .
+cp /home/<user>/pydir/daemon-rxcmd.sh .
 chmod 755 daemon-rxcmd.sh
 update-rc.d daemon-rxcmd.sh defaults
 mv /etc/rc2.d/S01daemon-rxcmd.sh /etc/rc2.d/S05daemon-rxcmd.sh
