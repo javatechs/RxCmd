@@ -189,6 +189,7 @@ As robot user check /home/<user>/pydir:
 
 * Check that daemon-rxcmd.py stdout, stderr and pid locations are correct, or modify according to your paths
 * Check that the paths/files listed in the variables section in daemon-rxcmd.sh are correct or modify according to your paths
+* Check that the user listed below the path variables section in daemon-rxcmd.sh is correct
 * Then execute these commands:
 -----------------------------------------------------
 sudo su
